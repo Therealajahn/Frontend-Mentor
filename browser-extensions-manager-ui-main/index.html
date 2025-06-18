@@ -140,13 +140,39 @@
 		main{
      display: flex;
 		 flex-wrap: wrap;
-		 margin: 3rem 2rem 0 2rem;
+		 margin: 2rem 2rem 0 2rem;
 		}
 		.card{
-			height: 20rem;
+			display:grid;
+			grid-template-columns: 1fr 3fr 1fr;
+			grid-template-rows: 1fr 1fr 3fr 2fr;
+			grid-template-areas: 
+				" .    .    . " 
+				" logo name . " 
+				" .    desc . " 
+				" remo .    togg " ;
+			height: 10rem;
 			width: 20rem;
 			background-color:var(--neutral-600); 
+			border: .05rem solid var(--neutral-300);
+			border-radius: 1rem;
 		}
+		.logo{
+			grid-area:logo;
+		}
+		.name{
+			grid-area: name;
+		}
+	  .description{
+			grid-area: desc;
+		}
+	  .remove-button{
+			grid-area: remo;
+		}
+		.enable-toggle{
+			grid-area: togg;
+		}
+
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
@@ -180,7 +206,7 @@
 					<h1>Extensions List</h1>	
 				</article>
 				<article class="horz-middle vert-middle">
-					<article class=" radio-article">
+					<article class="radio-article">
 							<label>
 								<input type="radio" class="sort-radio" name="sort-radio" checked>
 								<div class="sort-radio-div">All</div>
@@ -200,8 +226,12 @@
 
 		<main>
 			<article class="card">
+				<img class="logo" src="./assets/images/logo-devlens.svg">
+				<h3 class="name">DevLens</h3>
+				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
+				<button class="remove-button">Remove</button>
 				
-			</article>
+		</article>
 		</main>
 	<?--
   DevLens
