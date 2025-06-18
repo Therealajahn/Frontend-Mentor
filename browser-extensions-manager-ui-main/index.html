@@ -19,6 +19,10 @@
 			--neutral-200: hsl(217, 61%, 90%);
 			--neutral-100: hsl(0, 0%, 93%);
 			--neutral-0: hsl(200, 60%, 99%);
+
+			--red-400: hsl(3, 86%, 64%);
+			--red-500: hsl(3, 71%, 56%);
+			--red-700: hsl(3, 77%, 44%);
 		}  
 
 		*{
@@ -30,7 +34,9 @@
 			color: var(--neutral-0);
 		}
 		body{
-			background: var(--neutral-900);
+			display: flex;
+			flex-direction: column;
+			background: var(--neutral-800);
 		}
 		.border{
 			border: .2rem solid white;
@@ -41,13 +47,14 @@
 		}
 		.horz-middle{
 			display: flex;
-		  justify-content: center;
+	    justify-content: center;
 		}
+
 		header{
 			display: flex;
 			height: 4rem;
 			justify-content: space-between;
-			background-color: var(--neutral-800);
+			background-color: var(--neutral-600);
 			padding: 1rem;
 			margin: 1rem 2rem 1rem 2rem;
 			border-radius: .5rem;
@@ -57,13 +64,89 @@
 			width: 3rem;
 			overflow: hidden;
 		}
-		.mode-toggle{
+		
+		.mode-toggle-box{
+			position: absolute;
+			appearance: none;
+		}
+		.mode-toggle-span{
 			height: 3rem;
 			width: 3rem;
 			background-color: var(--neutral-700);
 			border-radius: .5rem;
 		}
-		/////////////////////////////////////////////////
+		.mode-toggle-box:checked + .mode-toggle-span > img{
+			content:url("./assets/images/icon-moon.svg");
+		}
+		.mode-toggle-box:checked + .mode-toggle-span{
+			background-color: var(--neutral-300);
+		}
+
+
+
+		section{
+			display: flex;
+			margin-top: 2rem;
+			justify-content: space-between;
+		}
+
+		@media(max-width: 575px){
+			section{
+				flex-direction: column;
+				height: 7rem;
+			}
+			main{
+				flex-direction: column;
+			}
+		}
+		@media(min-width: 575px){
+			section{
+				margin: 0 2rem 0 2rem;
+				height: 4rem;
+			}
+			.radio-article > article{
+				display: flex;
+				width: 17rem;
+				justify-content: space-between;
+			}
+		}                                                                
+	
+
+
+		h1{
+			font-size: 1.8rem;
+		}
+
+		.sort-radio{
+			appearance: none;
+		}
+
+		.sort-radio:checked + .sort-radio-div{
+			color: var(--neutral-800);
+			background-color: var(--red-400);
+		}
+
+		.sort-radio-div{
+			display: inline-block;      
+			text-align: center;
+			min-width: 3rem;
+			padding: .5rem 1rem .5rem 1rem;
+			border-radius: 1.5rem;
+			border: .05rem solid var(--neutral-600);
+			background-color: var(--neutral-700);
+			font-weight: 500;
+		}
+
+		main{
+     display: flex;
+		 flex-wrap: wrap;
+		 margin: 3rem 2rem 0 2rem;
+		}
+		.card{
+			height: 20rem;
+			width: 20rem;
+			background-color:var(--neutral-600); 
+		}
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
@@ -72,36 +155,53 @@
 
 	<header>
 
-			<figure class="vert-middle">
+			<article class="vert-middle">
 				<span class="crop-header-logo vert-middle">
 					<img src="./assets/images/logo.svg" alt="extensions-logo">
 				</span>
 				<h2 class='header-title vert-middle'>Extensions</h2>
-			</figure>
+			</article>
 
-			<figure class="vert-middle">
-				<span class="mode-toggle vert-middle horz-middle">
-					<img src="./assets/images/icon-sun.svg">
-				<span>
-			</figure>
+			<article class="vert-middle">
+				<label>
+					<input type="checkbox" class="mode-toggle-box" checked>
+					<span class="mode-toggle-span vert-middle horz-middle">
+						<img src="./assets/images/icon-sun.svg">
+					<span>
+				</label>
+			</article>
 
 	</header>
 
   <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
+		<section>
+
+				<article class="horz-middle vert-middle">
+					<h1>Extensions List</h1>	
+				</article>
+				<article class="horz-middle vert-middle">
+					<article class=" radio-article">
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio" checked>
+								<div class="sort-radio-div">All</div>
+							</label>
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio">
+								<div class="sort-radio-div">Active</div>
+							</label>
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio">
+								<div class="sort-radio-div">Inactive</div>
+							</label>				
+					</article>
+				</article>
+
+		</section>
+
 		<main>
-			<h1>Extensions List</h1>	
-				<figure>All</figure>
-				<figure>Active</figure>
-				<figure>Inactive</figure>
-			<section class="card-holder">
-				<article class="card"></article>
-				<article class="card"></article>
-				<article class="card"></article>
-				<article class="card"></article>
-				<article class="card"></article>
-				<article class="card"></article>
-				<article class="card"></article>
-			</section>
+			<article class="card">
+				
+			</article>
 		</main>
 	<?--
   DevLens
