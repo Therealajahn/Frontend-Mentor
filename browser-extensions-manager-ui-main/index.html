@@ -10,6 +10,60 @@
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
+		:root{
+			--neutral-900: hsl(227, 75%, 14%);
+			--neutral-800: hsl(226, 25%, 17%);
+			--neutral-700: hsl(225, 23%, 24%);
+			--neutral-600: hsl(226, 11%, 37%);
+			--neutral-300: hsl(0, 0%, 78%);
+			--neutral-200: hsl(217, 61%, 90%);
+			--neutral-100: hsl(0, 0%, 93%);
+			--neutral-0: hsl(200, 60%, 99%);
+		}  
+
+		*{
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family:Noto Sans;
+			src:url(https://fonts.google.com/noto/specimen/Noto+Sans);
+			color: var(--neutral-0);
+		}
+		body{
+			background: var(--neutral-900);
+		}
+		.border{
+			border: .2rem solid white;
+		}
+		.vert-middle{
+			display: flex;
+			align-items: center;
+		}
+		.horz-middle{
+			display: flex;
+		  justify-content: center;
+		}
+		header{
+			display: flex;
+			height: 4rem;
+			justify-content: space-between;
+			background-color: var(--neutral-800);
+			padding: 1rem;
+			margin: 1rem 2rem 1rem 2rem;
+			border-radius: .5rem;
+		}
+		.crop-header-logo{
+			height: 3rem;
+			width: 3rem;
+			overflow: hidden;
+		}
+		.mode-toggle{
+			height: 3rem;
+			width: 3rem;
+			background-color: var(--neutral-700);
+			border-radius: .5rem;
+		}
+		/////////////////////////////////////////////////
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
@@ -17,17 +71,39 @@
 <body>
 
 	<header>
-			<h2>Extensions</h2>
-			<figure class='mode-toggle'><figure>
+
+			<figure class="vert-middle">
+				<span class="crop-header-logo vert-middle">
+					<img src="./assets/images/logo.svg" alt="extensions-logo">
+				</span>
+				<h2 class='header-title vert-middle'>Extensions</h2>
+			</figure>
+
+			<figure class="vert-middle">
+				<span class="mode-toggle vert-middle horz-middle">
+					<img src="./assets/images/icon-sun.svg">
+				<span>
+			</figure>
+
 	</header>
 
   <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
 		<main>
 			<h1>Extensions List</h1>	
-			<article>All</article>
-			<article>Active</article>
-			<article>Inactive</article>
+				<figure>All</figure>
+				<figure>Active</figure>
+				<figure>Inactive</figure>
+			<section class="card-holder">
+				<article class="card"></article>
+				<article class="card"></article>
+				<article class="card"></article>
+				<article class="card"></article>
+				<article class="card"></article>
+				<article class="card"></article>
+				<article class="card"></article>
+			</section>
 		</main>
+	<?--
   DevLens
   Quickly inspect page layouts and visualize element boundaries.
   Remove
@@ -75,7 +151,7 @@
   ConsolePlus
   Enhanced developer console with advanced filtering and logging.
   Remove
-
+	-->
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="#">A'Jahn Kimble</a>.
