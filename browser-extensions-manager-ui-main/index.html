@@ -81,7 +81,7 @@
 		.mode-toggle-box:checked + .mode-toggle-span{
 			background-color: var(--neutral-300);
 		}
-      
+
 
 
 		section{
@@ -104,7 +104,7 @@
 				margin: 0 2rem 0 2rem;
 				height: 4rem;
 			}
-			.radio-article > article{
+			.radio-article{
 				display: flex;
 				width: 17rem;
 				justify-content: space-between;
@@ -121,12 +121,12 @@
 			appearance: none;
 		}
 
-		.sort-radio:checked + .sort-radio-div{
+		.sort-radio:checked + label.sort-radio{
 			color: var(--neutral-800);
 			background-color: var(--red-400);
 		}
 
-		.sort-radio-div{
+  	label.sort-radio{
 			display: inline-block;      
 			text-align: center;
 			min-width: 3rem;
@@ -144,16 +144,16 @@
 		}
 		.card{
 			display:grid;
-			grid-template-columns: 1fr 3fr 1fr;
-			grid-template-rows: 1fr 1fr 3fr 2fr;
+			grid-template-columns:25% 30% 35%;
+			grid-template-rows:20% 60% 20%;
 			grid-template-areas: 
-				" .    .    . " 
-				" logo name . " 
-				" .    desc . " 
-				" remo .    togg " ;
-			height: 10rem;
-			width: 20rem;
-			background-color:var(--neutral-600); 
+				" logo name .    .   " 
+				" .    desc desc .   " 
+				" remo .    togg .   " ;
+			height: 15rem;                
+			width: 25rem;
+			padding: 1rem;
+			background-color:var(--neutral-700); 
 			border: .05rem solid var(--neutral-300);
 			border-radius: 1rem;
 		}
@@ -168,9 +168,41 @@
 		}
 	  .remove-button{
 			grid-area: remo;
+			width: 5rem;
+			height: 2rem;
+			background-color:var(--neutral-700); 
+			border-radius: 1rem;
+			border: .05rem solid var(--neutral-300);
 		}
+
 		.enable-toggle{
 			grid-area: togg;
+			appearance: none;
+			justify-self: end;
+			align-self: center;
+		}
+		label.enable-toggle{
+      width: 2rem;
+			height: 1rem;
+			border-radius: .5rem;
+      background-color: var(--neutral-600);
+			transition: .25s ease-out;
+		}
+		label.enable-toggle::before{
+			content:"";
+			display: inline-block;
+      width: .95rem;
+			height: .95rem;
+			margin-bottom: 1rem;
+			border-radius: .5rem;
+			background-color: var(--neutral-300);
+			transition: .25s ease-out;
+		}
+		.enable-toggle:checked + label.enable-toggle{
+			background-color: var(--red-500);
+		}
+		.enable-toggle:checked + label.enable-toggle::before{
+			margin-left: 1rem;
 		}
 
     .attribution { font-size: 11px; text-align: center; }
@@ -207,18 +239,22 @@
 				</article>
 				<article class="horz-middle vert-middle">
 					<article class="radio-article">
-							<label>
-								<input type="radio" class="sort-radio" name="sort-radio" checked>
-								<div class="sort-radio-div">All</div>
+					
+							<input type="radio" class="sort-radio" id="all" name="sort-radio" checked>
+							<label class="sort-radio" for="all">
+								 All
 							</label>
-							<label>
-								<input type="radio" class="sort-radio" name="sort-radio">
-								<div class="sort-radio-div">Active</div>
+
+							<input type="radio" class="sort-radio" id="active" name="sort-radio">
+							<label class="sort-radio" for="active">
+               Active
 							</label>
-							<label>
-								<input type="radio" class="sort-radio" name="sort-radio">
-								<div class="sort-radio-div">Inactive</div>
+
+							<input type="radio" class="sort-radio" id="inactive" name="sort-radio">
+							<label class="sort-radio" for="inactive">
+               Inactive
 							</label>				
+
 					</article>
 				</article>
 
@@ -230,8 +266,9 @@
 				<h3 class="name">DevLens</h3>
 				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
 				<button class="remove-button">Remove</button>
-				<label class="enable-toggle">
-					<input type="checkbox"  checked>
+
+				<input type="checkbox" class="enable-toggle" id="enable-toggle" checked="false">
+				<label class="enable-toggle" for="enable-toggle">
 				</label>
 		</article>
 		</main>
