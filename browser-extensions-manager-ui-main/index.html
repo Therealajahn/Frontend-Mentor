@@ -23,6 +23,7 @@
 			--red-400: hsl(3, 86%, 64%);
 			--red-500: hsl(3, 71%, 56%);
 			--red-700: hsl(3, 77%, 44%);
+
 		}  
 
 		*{
@@ -31,12 +32,28 @@
 			padding: 0;
 			font-family:Noto Sans;
 			src:url(https://fonts.google.com/noto/specimen/Noto+Sans);
-			color: var(--neutral-0);
+			color: var(--text-color);
+		}
+		body.lightmode{
+			--text-color: var(--neutral-900);
+			--box-color: var(--neutral-0);
+			--border-color: var(--neutral-200);
+			--radio-color: var(--neutral-0);
+			--background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
+		}
+		body.darkmode{
+			--text-color: var(--neutral-0);
+			--box-color: var(--neutral-800);
+			--border-color: var(--neutral-600);
+			--radio-color: var(--neutral-700);
+			--background: linear-gradient(180deg, #040918 0%, #091540 100%);
 		}
 		body{
 			display: flex;
 			flex-direction: column;
-			background: var(--neutral-800);
+			background:var(--background);
+			margin-left: 6rem;
+			margin-right: 6rem;
 		}
 		.border{
 			border: .2rem solid white;
@@ -54,9 +71,10 @@
 			display: flex;
 			height: 4rem;
 			justify-content: space-between;
-			background-color: var(--neutral-600);
+			background-color: var(--box-color);
 			padding: 1rem;
-			margin: 1rem 2rem 1rem 2rem;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
 			border-radius: .5rem;
 		}
 		.crop-header-logo{
@@ -65,56 +83,36 @@
 			overflow: hidden;
 		}
 		
-		.mode-toggle-box{
-			position: absolute;
+		.mode-toggle{
 			appearance: none;
 		}
-		.mode-toggle-span{
+		label.mode-toggle{
 			height: 3rem;
 			width: 3rem;
 			background-color: var(--neutral-700);
 			border-radius: .5rem;
 		}
-		.mode-toggle-box:checked + .mode-toggle-span > img{
+		.mode-toggle:checked + label.mode-toggle > img{
 			content:url("./assets/images/icon-moon.svg");
 		}
-		.mode-toggle-box:checked + .mode-toggle-span{
-			background-color: var(--neutral-300);
+		.mode-toggle:checked + label.mode-toggle{
+			background-color: var(--neutral-100);
 		}
-
-
 
 		section{
 			display: flex;
-			margin-top: 2rem;
+			margin-top: 3rem;
 			justify-content: space-between;
 		}
 
-		@media(max-width: 575px){
-			section{
-				flex-direction: column;
-				height: 7rem;
-			}
-			main{
-				flex-direction: column;
-			}
-		}
-		@media(min-width: 575px){
-			section{
-				margin: 0 2rem 0 2rem;
-				height: 4rem;
-			}
-			.radio-article{
-				display: flex;
-				width: 17rem;
-				justify-content: space-between;
-			}
-		}                                                                
-	
-
-
 		h1{
 			font-size: 1.8rem;
+		}
+
+		.radio-article{
+			display: flex;
+			width: 17rem;
+			justify-content: space-between;
 		}
 
 		.sort-radio{
@@ -132,31 +130,33 @@
 			min-width: 3rem;
 			padding: .5rem 1rem .5rem 1rem;
 			border-radius: 1.5rem;
-			border: .05rem solid var(--neutral-600);
-			background-color: var(--neutral-700);
+			border: .05rem solid var(--border-color);
+			background-color: var(--radio-color);
 			font-weight: 500;
 		}
 
 		main{
      display: flex;
 		 flex-wrap: wrap;
-		 margin: 2rem 2rem 0 2rem;
+		 margin-top: 1rem;
+     justify-content: space-between;
+		 gap: .7rem;
 		}
 		.card{
 			display:grid;
-			grid-template-columns:25% 30% 35%;
+			grid-template-columns:25% 50% 15%;
 			grid-template-rows:20% 60% 20%;
 			grid-template-areas: 
 				" logo name .    .   " 
-				" .    desc desc .   " 
+				" .    desc desc desc" 
 				" remo .    togg .   " ;
-			height: 15rem;                
-			width: 25rem;
+			height: 12rem;                
+			width: 24.5rem;
 			padding: 1rem;
-			margin: .5rem;
-			background-color:var(--neutral-700); 
-			border: .05rem solid var(--neutral-300);
+			background-color:var(--box-color); 
+			border: .05rem solid var(--border-color);
 			border-radius: 1rem;
+			flex-grow: 1;
 		}
 		.logo{
 			grid-area:logo;
@@ -166,13 +166,14 @@
 		}
 	  .description{
 			grid-area: desc;
+			font-size: 16px;
 		}
 	  .remove-button{
 			grid-area: remo;
 			width: 5rem;
 			height: 2rem;
-			background-color:var(--neutral-700); 
-			border: .05rem solid var(--neutral-300);
+			background-color:var(--box-color); 
+			border: .05rem solid var(--border-color);
 			border-radius: 1rem;
 		}
 
@@ -186,6 +187,7 @@
       width: 2rem;
 			height: 1rem;
 			border-radius: .5rem;
+		  /* static color */
       background-color: var(--neutral-600);
 			transition: .25s ease-out;
 		}
@@ -196,10 +198,12 @@
 			height: .95rem;
 			margin-bottom: 1rem;
 			border-radius: .5rem;
-			background-color: var(--neutral-300);
+		  /* static color */
+			background-color: var(--neutral-0);
 			transition: .25s ease-out;
 		}
 		.enable-toggle:checked + label.enable-toggle{
+		  /* static color */
 			background-color: var(--red-500);
 		}
 		.enable-toggle:checked + label.enable-toggle::before{
@@ -208,9 +212,26 @@
 
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+
+		@media(max-width: 575px){
+			body{
+				margin-left: 5vw;
+				margin-right: 5vw;
+			}
+			section{
+				flex-direction: column;
+				height: 7rem;
+			}
+			main{
+				align-items: center;
+			}
+			.card{
+				width: 100%; 
+			}
+		}
   </style>
 </head>
-<body>
+<body class="lightmode">
 
 	<header>
 
@@ -222,11 +243,9 @@
 			</article>
 
 			<article class="vert-middle">
-				<label>
-					<input type="checkbox" class="mode-toggle-box" checked>
-					<span class="mode-toggle-span vert-middle horz-middle">
+				<input type="checkbox" class="mode-toggle" id="mode-toggle">
+				<label class="mode-toggle vert-middle horz-middle" for="mode-toggle">
 						<img src="./assets/images/icon-sun.svg">
-					<span>
 				</label>
 			</article>
 
@@ -262,64 +281,44 @@
 		</section>
 
 		<main>
-			<article class="card">
-				<img class="logo" src="./assets/images/logo-devlens.svg">
-				<h3 class="name">DevLens</h3>
-				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
-				<button class="remove-button">Remove</button>
-
-				<input type="checkbox" class="enable-toggle" id="enable-toggle1" checked="false">
-				<label class="enable-toggle" for="enable-toggle1">
-				</label>
-		</article>
-
-		<article class="card">
-				<img class="logo" src="./assets/images/logo-devlens.svg">
-				<h3 class="name">DevLens</h3>
-				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
-				<button class="remove-button">Remove</button>
-
-				<input type="checkbox" class="enable-toggle" id="enable-toggle" checked="false">
-				<label class="enable-toggle" for="enable-toggle">
-				</label>
-		</article>
-		<script>
+		</main>
+ 	<script>
 			function makeCard(logoURL,headerName,descriptionContent,isActive,index){
-			let card = document.createElement('article');
-				card.setAttribute('class','card');
-			let logo = document.createElement('img');
-				logo.setAttribute('src',logoURL);
-				card.appendChild(logo);
-			let name = document.createElement('h3');
-				name.setAttribute('class','name');
-				name.innerHTML = headerName;
-				card.appendChild(name);
-      let description = document.createElement('p');
-				description.setAttribute('class','description');
-				description.innerHTML = descriptionContent;
-				card.appendChild(description);
-			let remove = document.createElement('button');
-				remove.setAttribute('class','remove-button');
-				remove.innerHTML = 'Remove';
-				remove.addEventListener('click',() => {
-					card.style.display = 'none';
-				});
-				card.appendChild(remove);
-			let checkbox = document.createElement('input');
-				checkbox.setAttribute('type','checkbox');
-				checkbox.setAttribute('class','enable-toggle');
-				checkbox.setAttribute('id',`enable-toggle${index}`);
-				if(isActive){
-					checkbox.setAttribute('checked','true');
-				};
-				card.appendChild(checkbox);
-      let label = document.createElement('label');
-				label.setAttribute('class','enable-toggle');
-				label.setAttribute('for',`enable-toggle${index}`);
-				card.appendChild(label);
+				let card = document.createElement('article');
+					card.setAttribute('class','card');
+				let logo = document.createElement('img');
+					logo.setAttribute('src',logoURL);
+					card.appendChild(logo);
+				let name = document.createElement('h3');
+					name.setAttribute('class','name');
+					name.innerHTML = headerName;
+					card.appendChild(name);
+				let description = document.createElement('p');
+					description.setAttribute('class','description');
+					description.innerHTML = descriptionContent;
+					card.appendChild(description);
+				let remove = document.createElement('button');
+					remove.setAttribute('class','remove-button');
+					remove.innerHTML = 'Remove';
+					remove.addEventListener('click',() => {
+						card.style.display = 'none';
+					});
+					card.appendChild(remove);
+				let checkbox = document.createElement('input');
+					checkbox.setAttribute('type','checkbox');
+					checkbox.setAttribute('class','enable-toggle');
+					checkbox.setAttribute('id',`enable-toggle${index}`);
+					if(isActive){
+						checkbox.setAttribute('checked','true');
+					};
+					card.appendChild(checkbox);
+				let label = document.createElement('label');
+					label.setAttribute('class','enable-toggle');
+					label.setAttribute('for',`enable-toggle${index}`);
+					card.appendChild(label);
 
-			let main = document.querySelector('main');
-			main.appendChild(card);
+				let main = document.querySelector('main');
+				main.appendChild(card);
 			};
 			fetch('./data.json')
 				.then(response => response.json())
