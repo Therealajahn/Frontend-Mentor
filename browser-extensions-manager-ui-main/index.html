@@ -153,6 +153,7 @@
 			height: 15rem;                
 			width: 25rem;
 			padding: 1rem;
+			margin: .5rem;
 			background-color:var(--neutral-700); 
 			border: .05rem solid var(--neutral-300);
 			border-radius: 1rem;
@@ -171,8 +172,8 @@
 			width: 5rem;
 			height: 2rem;
 			background-color:var(--neutral-700); 
-			border-radius: 1rem;
 			border: .05rem solid var(--neutral-300);
+			border-radius: 1rem;
 		}
 
 		.enable-toggle{
@@ -267,10 +268,74 @@
 				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
 				<button class="remove-button">Remove</button>
 
+				<input type="checkbox" class="enable-toggle" id="enable-toggle1" checked="false">
+				<label class="enable-toggle" for="enable-toggle1">
+				</label>
+		</article>
+
+		<article class="card">
+				<img class="logo" src="./assets/images/logo-devlens.svg">
+				<h3 class="name">DevLens</h3>
+				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
+				<button class="remove-button">Remove</button>
+
 				<input type="checkbox" class="enable-toggle" id="enable-toggle" checked="false">
 				<label class="enable-toggle" for="enable-toggle">
 				</label>
 		</article>
+		<script>
+			function makeCard(logoURL,headerName,descriptionContent,isActive,index){
+			let card = document.createElement('article');
+				card.setAttribute('class','card');
+			let logo = document.createElement('img');
+				logo.setAttribute('src',logoURL);
+				card.appendChild(logo);
+			let name = document.createElement('h3');
+				name.setAttribute('class','name');
+				name.innerHTML = headerName;
+				card.appendChild(name);
+      let description = document.createElement('p');
+				description.setAttribute('class','description');
+				description.innerHTML = descriptionContent;
+				card.appendChild(description);
+			let remove = document.createElement('button');
+				remove.setAttribute('class','remove-button');
+				remove.innerHTML = 'Remove';
+				remove.addEventListener('click',() => {
+					card.style.display = 'none';
+				});
+				card.appendChild(remove);
+			let checkbox = document.createElement('input');
+				checkbox.setAttribute('type','checkbox');
+				checkbox.setAttribute('class','enable-toggle');
+				checkbox.setAttribute('id',`enable-toggle${index}`);
+				if(isActive){
+					checkbox.setAttribute('checked','true');
+				};
+				card.appendChild(checkbox);
+      let label = document.createElement('label');
+				label.setAttribute('class','enable-toggle');
+				label.setAttribute('for',`enable-toggle${index}`);
+				card.appendChild(label);
+
+			let main = document.querySelector('main');
+			main.appendChild(card);
+			};
+			fetch('./data.json')
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					data.forEach((card,i) => {
+						makeCard(
+							card.logo,
+							card.name,
+							card.description,
+							card.isActive,
+							i
+						);
+					})
+				})
+		</script>
 		</main>
 	<?--
   DevLens
