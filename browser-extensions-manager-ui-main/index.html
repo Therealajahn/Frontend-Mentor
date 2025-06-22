@@ -36,16 +36,20 @@
 		}
 		body.lightmode{
 			--text-color: var(--neutral-900);
+			--body-text: var(--neutral-600);
 			--box-color: var(--neutral-0);
 			--border-color: var(--neutral-200);
 			--radio-color: var(--neutral-0);
+			--active-red: var(--red-700);
 			--background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
 		}
 		body.darkmode{
 			--text-color: var(--neutral-0);
+			--body-text: var(--neutral-0);
 			--box-color: var(--neutral-800);
 			--border-color: var(--neutral-600);
 			--radio-color: var(--neutral-700);
+			--active-red: var(--red-400);
 			--background: linear-gradient(180deg, #040918 0%, #091540 100%);
 		}
 		body{
@@ -121,7 +125,7 @@
 
 		.sort-radio:checked + label.sort-radio{
 			color: var(--neutral-800);
-			background-color: var(--red-400);
+			background-color: var(--active-red);
 		}
 
   	label.sort-radio{
@@ -145,11 +149,11 @@
 		.card{
 			display:grid;
 			grid-template-columns:25% 50% 15%;
-			grid-template-rows:20% 60% 20%;
+			grid-template-rows:20% 55% 20%;
 			grid-template-areas: 
 				" logo name .    .   " 
 				" .    desc desc desc" 
-				" remo .    togg .   " ;
+				" remo .    .    togg" ;
 			height: 12rem;                
 			width: 24.5rem;
 			padding: 1rem;
@@ -167,6 +171,7 @@
 	  .description{
 			grid-area: desc;
 			font-size: 16px;
+			color: var(--body-text);
 		}
 	  .remove-button{
 			grid-area: remo;
@@ -175,6 +180,7 @@
 			background-color:var(--box-color); 
 			border: .05rem solid var(--border-color);
 			border-radius: 1rem;
+			font-weight: 500;
 		}
 
 		.enable-toggle{
@@ -185,18 +191,18 @@
 		}
 		label.enable-toggle{
       width: 2rem;
-			height: 1rem;
-			border-radius: .5rem;
+			height: 1.2rem;
+			border-radius: .6rem;
 		  /* static color */
       background-color: var(--neutral-600);
 			transition: .25s ease-out;
 		}
 		label.enable-toggle::before{
 			content:"";
-			display: inline-block;
+			display: block;
       width: .95rem;
 			height: .95rem;
-			margin-bottom: 1rem;
+			margin-top: .1rem;
 			border-radius: .5rem;
 		  /* static color */
 			background-color: var(--neutral-0);
@@ -204,7 +210,7 @@
 		}
 		.enable-toggle:checked + label.enable-toggle{
 		  /* static color */
-			background-color: var(--red-500);
+			background-color: var(--active-red);
 		}
 		.enable-toggle:checked + label.enable-toggle::before{
 			margin-left: 1rem;
@@ -334,6 +340,16 @@
 						);
 					})
 				})
+
+			let modeToggle = document.querySelector("input.mode-toggle");
+			let body = document.querySelector("body");
+			modeToggle.addEventListener("change",event => {
+				if(event.target.checked){
+        	body.setAttribute("class","lightmode");
+					return;
+				}
+				body.setAttribute("class","darkmode");
+			});
 		</script>
 		</main>
 	<?--
