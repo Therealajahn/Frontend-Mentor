@@ -41,6 +41,7 @@
 			--border-color: var(--neutral-200);
 			--radio-color: var(--neutral-0);
 			--active-red: var(--red-700);
+			--inactive-grey: var(--neutral-300);
 			--background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
 		}
 		body.darkmode{
@@ -50,6 +51,7 @@
 			--border-color: var(--neutral-600);
 			--radio-color: var(--neutral-700);
 			--active-red: var(--red-400);
+			--inactive-grey: var(--neutral-600);
 			--background: linear-gradient(180deg, #040918 0%, #091540 100%);
 		}
 		body{
@@ -91,10 +93,15 @@
 			appearance: none;
 		}
 		label.mode-toggle{
+			cursor:pointer;
 			height: 3rem;
 			width: 3rem;
 			background-color: var(--neutral-700);
 			border-radius: .5rem;
+		}
+
+		label.mode-toggle:hover{
+			outline: .13rem solid var(--active-red);
 		}
 		.mode-toggle:checked + label.mode-toggle > img{
 			content:url("./assets/images/icon-moon.svg");
@@ -130,6 +137,7 @@
 
   	label.sort-radio{
 			display: inline-block;      
+			cursor:pointer;
 			text-align: center;
 			min-width: 3rem;
 			padding: .5rem 1rem .5rem 1rem;
@@ -138,6 +146,11 @@
 			background-color: var(--radio-color);
 			font-weight: 500;
 		}
+
+		label.sort-radio:hover{
+			outline: .13rem solid var(--active-red);
+		}
+
 
 		main{
      display: flex;
@@ -175,12 +188,17 @@
 		}
 	  .remove-button{
 			grid-area: remo;
+			cursor:pointer;
 			width: 5rem;
 			height: 2rem;
 			background-color:var(--box-color); 
 			border: .05rem solid var(--border-color);
 			border-radius: 1rem;
 			font-weight: 500;
+		}
+
+		.remove-button:hover{
+			outline: .13rem solid var(--active-red);
 		}
 
 		.enable-toggle{
@@ -191,10 +209,11 @@
 		}
 		label.enable-toggle{
       width: 2rem;
+			cursor: pointer;
 			height: 1.2rem;
 			border-radius: .6rem;
 		  /* static color */
-      background-color: var(--neutral-600);
+      background-color: var(--inactive-grey);
 			transition: .25s ease-out;
 		}
 		label.enable-toggle::before{
@@ -207,6 +226,10 @@
 		  /* static color */
 			background-color: var(--neutral-0);
 			transition: .25s ease-out;
+		}
+
+		label.enable-toggle:hover{
+			outline: .13rem solid var(--active-red);
 		}
 		.enable-toggle:checked + label.enable-toggle{
 		  /* static color */
@@ -237,7 +260,7 @@
 		}
   </style>
 </head>
-<body class="lightmode">
+<body class="darkmode">
 
 	<header>
 
@@ -289,19 +312,21 @@
 		<main>
 		</main>
  	<script>
-			function makeCard(logoURL,headerName,descriptionContent,isActive,index){
+			let main = document.querySelector('main');
+
+			function makeCard(cardJSON,index){
 				let card = document.createElement('article');
 					card.setAttribute('class','card');
 				let logo = document.createElement('img');
-					logo.setAttribute('src',logoURL);
+					logo.setAttribute('src',cardJSON.logo);
 					card.appendChild(logo);
 				let name = document.createElement('h3');
 					name.setAttribute('class','name');
-					name.innerHTML = headerName;
+					name.innerHTML = cardJSON.name;
 					card.appendChild(name);
 				let description = document.createElement('p');
 					description.setAttribute('class','description');
-					description.innerHTML = descriptionContent;
+					description.innerHTML = cardJSON.description;
 					card.appendChild(description);
 				let remove = document.createElement('button');
 					remove.setAttribute('class','remove-button');
@@ -314,7 +339,7 @@
 					checkbox.setAttribute('type','checkbox');
 					checkbox.setAttribute('class','enable-toggle');
 					checkbox.setAttribute('id',`enable-toggle${index}`);
-					if(isActive){
+					if(cardJSON.isActive){
 						checkbox.setAttribute('checked','true');
 					};
 					card.appendChild(checkbox);
@@ -323,23 +348,8 @@
 					label.setAttribute('for',`enable-toggle${index}`);
 					card.appendChild(label);
 
-				let main = document.querySelector('main');
 				main.appendChild(card);
 			};
-			fetch('./data.json')
-				.then(response => response.json())
-				.then(data => {
-					console.log(data);
-					data.forEach((card,i) => {
-						makeCard(
-							card.logo,
-							card.name,
-							card.description,
-							card.isActive,
-							i
-						);
-					})
-				})
 
 			let modeToggle = document.querySelector("input.mode-toggle");
 			let body = document.querySelector("body");
@@ -350,6 +360,40 @@
 				}
 				body.setAttribute("class","darkmode");
 			});
+
+
+			function convertJSONToCards(cardSort,json){
+				main.innerHTML = "";
+				json.forEach((card,index) => {
+					switch(cardSort){
+						case 'all':
+							makeCard(card,index);
+						break;
+						case 'active':
+							if(card.isActive){
+							makeCard(card,index);
+							}
+						break;
+						case 'inactive':
+							if(!card.isActive){
+							makeCard(card,index);
+							}
+						break;
+					}
+				})
+			};
+
+			let radioArticle = document.querySelector(".radio-article");
+
+			fetch("data.json")
+				.then(response => response.json())
+				.then(json => {
+					convertJSONToCards('all',json)
+					radioArticle.addEventListener(
+						"change",
+						event => convertJSONToCards(event.target.id,json)
+					);
+				});
 		</script>
 		</main>
 	<?--
