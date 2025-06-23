@@ -214,7 +214,7 @@
 			border-radius: .6rem;
 		  /* static color */
       background-color: var(--inactive-grey);
-			transition: .25s ease-out;
+			transition:background-color .25s ease-out;
 		}
 		label.enable-toggle::before{
 			content:"";
@@ -225,7 +225,9 @@
 			border-radius: .5rem;
 		  /* static color */
 			background-color: var(--neutral-0);
-			transition: .25s ease-out;
+			transition-property: margin-left,background-color;
+			transition-duration: .25s;
+			transition-timing-function: ease-out;
 		}
 
 		label.enable-toggle:hover{
@@ -317,15 +319,13 @@
 			function makeCard(cardJSON,index){
 				let card = document.createElement('article');
 					card.setAttribute('class','card');
-					card.innerHTML = `
-							<img>
+					card.innerHTML = 
+				     `<img>
 							<h3 class="name"></h3>
-							<p class="description"> 
-							</p>
+							<p class="description"></p>
 							<button class="remove-button">Remove</button>
-							<input type="checkbox" class="enable-toggle" id="enable-toggle1" checked="true">
-							<label class="enable-toggle" for="enable-toggle1"></label>
-					`;
+							<input type="checkbox" class="enable-toggle">
+							<label class="enable-toggle" for="enable-toggle1"></label>`;
 				let logo = card.querySelector('img');
 					logo.setAttribute('src',cardJSON.logo);
 				let name = card.querySelector('h3');
@@ -333,12 +333,10 @@
 				let description = card.querySelector('p');
 					description.innerHTML = cardJSON.description;
 				let remove = card.querySelector('button');
-					remove.innerHTML = 'Remove';
 					remove.addEventListener('click',() => {
 						card.style.display = 'none';
 					});
 				let checkbox = card.querySelector('input');
-					checkbox.setAttribute('type','checkbox');
 					checkbox.setAttribute('id',`enable-toggle${index}`);
 					if(cardJSON.isActive){
 						checkbox.setAttribute('checked','true');
