@@ -317,36 +317,34 @@
 			function makeCard(cardJSON,index){
 				let card = document.createElement('article');
 					card.setAttribute('class','card');
-				let logo = document.createElement('img');
+					card.innerHTML = `
+							<img>
+							<h3 class="name"></h3>
+							<p class="description"> 
+							</p>
+							<button class="remove-button">Remove</button>
+							<input type="checkbox" class="enable-toggle" id="enable-toggle1" checked="true">
+							<label class="enable-toggle" for="enable-toggle1"></label>
+					`;
+				let logo = card.querySelector('img');
 					logo.setAttribute('src',cardJSON.logo);
-					card.appendChild(logo);
-				let name = document.createElement('h3');
-					name.setAttribute('class','name');
+				let name = card.querySelector('h3');
 					name.innerHTML = cardJSON.name;
-					card.appendChild(name);
-				let description = document.createElement('p');
-					description.setAttribute('class','description');
+				let description = card.querySelector('p');
 					description.innerHTML = cardJSON.description;
-					card.appendChild(description);
-				let remove = document.createElement('button');
-					remove.setAttribute('class','remove-button');
+				let remove = card.querySelector('button');
 					remove.innerHTML = 'Remove';
 					remove.addEventListener('click',() => {
 						card.style.display = 'none';
 					});
-					card.appendChild(remove);
-				let checkbox = document.createElement('input');
+				let checkbox = card.querySelector('input');
 					checkbox.setAttribute('type','checkbox');
-					checkbox.setAttribute('class','enable-toggle');
 					checkbox.setAttribute('id',`enable-toggle${index}`);
 					if(cardJSON.isActive){
 						checkbox.setAttribute('checked','true');
 					};
-					card.appendChild(checkbox);
-				let label = document.createElement('label');
-					label.setAttribute('class','enable-toggle');
+				let label = card.querySelector('label');
 					label.setAttribute('for',`enable-toggle${index}`);
-					card.appendChild(label);
 
 				main.appendChild(card);
 			};
