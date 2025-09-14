@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   
   <title>Frontend Mentor | Browser extensions manager UI</title>
 
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
 		:root{
 			--neutral-900: hsl(227, 75%, 14%);
@@ -30,34 +31,12 @@
 			padding: 0;
 			font-family:Noto Sans;
 			src:url(https://fonts.google.com/noto/specimen/Noto+Sans);
-			color: var(--text-color);
-		}
-		body.lightmode{
-			--text-color: var(--neutral-900);
-			--body-text: var(--neutral-600);
-			--box-color: var(--neutral-0);
-			--border-color: var(--neutral-200);
-			--radio-color: var(--neutral-0);
-			--active-red: var(--red-700);
-			--inactive-grey: var(--neutral-300);
-			--background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
-		}
-		body.darkmode{
-			--text-color: var(--neutral-0);
-			--body-text: var(--neutral-0);
-			--box-color: var(--neutral-800);
-			--border-color: var(--neutral-600);
-			--radio-color: var(--neutral-700);
-			--active-red: var(--red-400);
-			--inactive-grey: var(--neutral-600);
-			--background: linear-gradient(180deg, #040918 0%, #091540 100%);
+			color: var(--neutral-0);
 		}
 		body{
 			display: flex;
 			flex-direction: column;
-			background:var(--background);
-			margin-left: 6rem;
-			margin-right: 6rem;
+			background: var(--neutral-800);
 		}
 		.border{
 			border: .2rem solid white;
@@ -75,10 +54,9 @@
 			display: flex;
 			height: 4rem;
 			justify-content: space-between;
-			background-color: var(--box-color);
+			background-color: var(--neutral-600);
 			padding: 1rem;
-			margin-top: 1rem;
-			margin-bottom: 1rem;
+			margin: 1rem 2rem 1rem 2rem;
 			border-radius: .5rem;
 		}
 		.crop-header-logo{
@@ -87,91 +65,97 @@
 			overflow: hidden;
 		}
 		
-		.mode-toggle{
+		.mode-toggle-box{
+			position: absolute;
 			appearance: none;
 		}
-		label.mode-toggle{
-			cursor:pointer;
+		.mode-toggle-span{
 			height: 3rem;
 			width: 3rem;
 			background-color: var(--neutral-700);
 			border-radius: .5rem;
 		}
-
-		label.mode-toggle:hover{
-			outline: .13rem solid var(--active-red);
-		}
-		.mode-toggle:checked + label.mode-toggle > img{
+		.mode-toggle-box:checked + .mode-toggle-span > img{
 			content:url("./assets/images/icon-moon.svg");
 		}
-		.mode-toggle:checked + label.mode-toggle{
-			background-color: var(--neutral-100);
+		.mode-toggle-box:checked + .mode-toggle-span{
+			background-color: var(--neutral-300);
 		}
+
+
 
 		section{
 			display: flex;
-			margin-top: 3rem;
+			margin-top: 2rem;
 			justify-content: space-between;
 		}
+
+		@media(max-width: 575px){
+			section{
+				flex-direction: column;
+				height: 7rem;
+			}
+			main{
+				flex-direction: column;
+			}
+		}
+		@media(min-width: 575px){
+			section{
+				margin: 0 2rem 0 2rem;
+				height: 4rem;
+			}
+			.radio-article > article{
+				display: flex;
+				width: 17rem;
+				justify-content: space-between;
+			}
+		}                                                                
+	
+
 
 		h1{
 			font-size: 1.8rem;
-		}
-
-		.radio-article{
-			display: flex;
-			width: 17rem;
-			justify-content: space-between;
 		}
 
 		.sort-radio{
 			appearance: none;
 		}
 
-		.sort-radio:checked + label.sort-radio{
+		.sort-radio:checked + .sort-radio-div{
 			color: var(--neutral-800);
-			background-color: var(--active-red);
+			background-color: var(--red-400);
 		}
 
-  	label.sort-radio{
+		.sort-radio-div{
 			display: inline-block;      
-			cursor:pointer;
 			text-align: center;
 			min-width: 3rem;
 			padding: .5rem 1rem .5rem 1rem;
 			border-radius: 1.5rem;
-			border: .05rem solid var(--border-color);
-			background-color: var(--radio-color);
+			border: .05rem solid var(--neutral-600);
+			background-color: var(--neutral-700);
 			font-weight: 500;
 		}
-
-		label.sort-radio:hover{
-			outline: .13rem solid var(--active-red);
-		}
-
 
 		main{
      display: flex;
 		 flex-wrap: wrap;
-		 margin-top: 1rem;
-     justify-content: space-between;
-		 gap: .7rem;
+		 margin: 2rem 2rem 0 2rem;
 		}
 		.card{
 			display:grid;
-			grid-template-columns:25% 50% 15%;
-			grid-template-rows:20% 55% 20%;
+			grid-template-columns: 1fr 3fr 1fr;
+			grid-template-rows: 1fr 1fr 3fr 2fr;
 			grid-template-areas: 
-				" logo name .    .   " 
-				" .    desc desc desc" 
-				" remo .    .    togg" ;
-			height: 12rem;                
-			width: 24.5rem;
-			padding: 1rem;
-			background-color:var(--box-color); 
-			border: .05rem solid var(--border-color);
+				" .    .    . " 
+				" logo name . " 
+				" .    desc . " 
+				" remo .    togg " ;
+			height: 10rem;
+			width: 20rem;
+			background-color:var(--neutral-600); 
+			border: .05rem solid var(--neutral-300);
 			border-radius: 1rem;
-			flex-grow: 1;
 		}
 		.logo{
 			grid-area:logo;
@@ -181,86 +165,19 @@
 		}
 	  .description{
 			grid-area: desc;
-			font-size: 16px;
-			color: var(--body-text);
 		}
 	  .remove-button{
 			grid-area: remo;
-			cursor:pointer;
-			width: 5rem;
-			height: 2rem;
-			background-color:var(--box-color); 
-			border: .05rem solid var(--border-color);
-			border-radius: 1rem;
-			font-weight: 500;
 		}
-
-		.remove-button:hover{
-			outline: .13rem solid var(--active-red);
-		}
-
 		.enable-toggle{
 			grid-area: togg;
-			appearance: none;
-			justify-self: end;
-			align-self: center;
-		}
-		label.enable-toggle{
-      width: 2rem;
-			cursor: pointer;
-			height: 1.2rem;
-			border-radius: .6rem;
-		  /* static color */
-      background-color: var(--inactive-grey);
-			transition:background-color .25s ease-out;
-		}
-		label.enable-toggle::before{
-			content:"";
-			display: block;
-      width: .95rem;
-			height: .95rem;
-			margin-top: .1rem;
-			border-radius: .5rem;
-		  /* static color */
-			background-color: var(--neutral-0);
-			transition-property: margin-left,background-color;
-			transition-duration: .25s;
-			transition-timing-function: ease-out;
-		}
-
-		label.enable-toggle:hover{
-			outline: .13rem solid var(--active-red);
-		}
-		.enable-toggle:checked + label.enable-toggle{
-		  /* static color */
-			background-color: var(--active-red);
-		}
-		.enable-toggle:checked + label.enable-toggle::before{
-			margin-left: 1rem;
 		}
 
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
-
-		@media(max-width: 575px){
-			body{
-				margin-left: 5vw;
-				margin-right: 5vw;
-			}
-			section{
-				flex-direction: column;
-				height: 7rem;
-			}
-			main{
-				align-items: center;
-			}
-			.card{
-				width: 100%; 
-			}
-		}
   </style>
 </head>
-<body class="darkmode">
+<body>
 
 	<header>
 
@@ -272,12 +189,14 @@
 			</article>
 
 			<article class="vert-middle">
-				<input type="checkbox" class="mode-toggle" id="mode-toggle">
-				<label class="mode-toggle vert-middle horz-middle" for="mode-toggle">
+				<label>
+					<input type="checkbox" class="mode-toggle-box" checked>
+					<span class="mode-toggle-span vert-middle horz-middle">
 						<img src="./assets/images/icon-sun.svg">
+					<span>
 				</label>
 			</article>
-
+nav
 	</header>
 
   <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
@@ -288,107 +207,33 @@
 				</article>
 				<article class="horz-middle vert-middle">
 					<article class="radio-article">
-					
-							<input type="radio" class="sort-radio" id="all" name="sort-radio" checked>
-							<label class="sort-radio" for="all">
-								 All
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio" checked>
+								<div class="sort-radio-div">All</div>
 							</label>
-
-							<input type="radio" class="sort-radio" id="active" name="sort-radio">
-							<label class="sort-radio" for="active">
-               Active
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio">
+								<div class="sort-radio-div">Active</div>
 							</label>
-
-							<input type="radio" class="sort-radio" id="inactive" name="sort-radio">
-							<label class="sort-radio" for="inactive">
-               Inactive
+							<label>
+								<input type="radio" class="sort-radio" name="sort-radio">
+								<div class="sort-radio-div">Inactive</div>
 							</label>				
-
 					</article>
 				</article>
 
 		</section>
 
 		<main>
-		</main>
- 	<script>
-			let main = document.querySelector('main');
-
-			function makeCard(cardJSON,index){
-				let card = document.createElement('article');
-					card.setAttribute('class','card');
-					card.innerHTML = 
-				     `<img>
-							<h3 class="name"></h3>
-							<p class="description"></p>
-							<button class="remove-button">Remove</button>
-							<input type="checkbox" class="enable-toggle">
-							<label class="enable-toggle" for="enable-toggle1"></label>`;
-				let logo = card.querySelector('img');
-					logo.setAttribute('src',cardJSON.logo);
-				let name = card.querySelector('h3');
-					name.innerHTML = cardJSON.name;
-				let description = card.querySelector('p');
-					description.innerHTML = cardJSON.description;
-				let remove = card.querySelector('button');
-					remove.addEventListener('click',() => {
-						card.style.display = 'none';
-					});
-				let checkbox = card.querySelector('input');
-					checkbox.setAttribute('id',`enable-toggle${index}`);
-					if(cardJSON.isActive){
-						checkbox.setAttribute('checked','true');
-					};
-				let label = card.querySelector('label');
-					label.setAttribute('for',`enable-toggle${index}`);
-
-				main.appendChild(card);
-			};
-
-			let modeToggle = document.querySelector("input.mode-toggle");
-			let body = document.querySelector("body");
-			modeToggle.addEventListener("change",event => {
-				if(event.target.checked){
-        	body.setAttribute("class","lightmode");
-					return;
-				}
-				body.setAttribute("class","darkmode");
-			});
-
-
-			function convertJSONToCards(cardSort,json){
-				main.innerHTML = "";
-				json.forEach((card,index) => {
-					switch(cardSort){
-						case 'all':
-							makeCard(card,index);
-						break;
-						case 'active':
-							if(card.isActive){
-							makeCard(card,index);
-							}
-						break;
-						case 'inactive':
-							if(!card.isActive){
-							makeCard(card,index);
-							}
-						break;
-					}
-				})
-			};
-
-			let radioArticle = document.querySelector(".radio-article");
-
-			fetch("data.json")
-				.then(response => response.json())
-				.then(json => {
-					convertJSONToCards('all',json)
-					radioArticle.addEventListener(
-						"change",
-						event => convertJSONToCards(event.target.id,json)
-					);
-				});
-		</script>
+			<article class="card">
+				<img class="logo" src="./assets/images/logo-devlens.svg">
+				<h3 class="name">DevLens</h3>
+				<p class="description">Quickly inspect page layouts and visualize element boundaries.</p> 
+				<button class="remove-button">Remove</button>
+				<label>
+					<input type="checkbox" class="enable-toggle" checked>
+				</label>
+		</article>
 		</main>
 	<?--
   DevLens
