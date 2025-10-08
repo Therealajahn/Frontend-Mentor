@@ -1,17 +1,53 @@
 <script setup>
 	import { ref, onMounted } from 'vue';
+	import axios from 'axios';
+	import Card from './Card.vue';
+	import Page from './Page.vue';
 
-	const count = ref(0);
-	function increment(){
-		count++;
+	function convertJSONToCards(cardSort,json){
+		json.forEach((card,index) => {
+			switch(cardSort){
+				case 'all':
+					return `<Card card=${card} index=${index}/>`;
+				break;
+				case 'active':
+					if(card.isActive){
+						return `<Card card=${card} index=${index}/>`;
+					}
+				break;
+				case 'inactive':
+					if(!card.isActive){
+						return `<Card card=${card} index=${index}/>`;
+					}
+				break;
+			}
+		})
 	};
+
 	onMounted(() => {
-		console.log(`Initiial count:${count}`)
+		axios
+			.get("./data.json")
+			.then(response => console.log(response))
+			.then(json => {    				
+				console.log('json',json)
+			 // convertJSONToCards('all',json)
+			 // radioArticle.addEventListener(
+			 // 	"change",
+			 // 	event => convertJSONToCards(event.target.id,json)
+			 // );
+			});
+		document.querySelector("body")
+		.setAttribute("class","darkmode");
 	});
 </script>
 
 <template>
-	<button @click="count++">Count is: {{ count }}</button>
+	<Page />
+	<!--
+	<main class="side-margin" v-for="(card,index) in cardList">
+		<Card/>
+	</main>
+	-->
 </template>
 
-<style scoped></style>
+<style src='./style.css'></style>
