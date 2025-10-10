@@ -1,0 +1,22 @@
+ [
+    {
+        "model": "items.item",
+        "pk": 1, 
+        "fields": {
+            "logo": "./assets/images/logo-devlens.svg",
+            "name": "DevLens",
+            "description": "Quickly inspect page layouts and visualize element boundaries.",
+            "isActive": true
+        }
+    },
+    {
+        "model": "items.item",
+        "pk": 2, 
+        "fields": {
+            "logo": "./assets/images/logo-another.svg",
+            "name": "QuickLogger",
+            "description": "A simple tool for logging console messages directly to the UI.",
+            "isActive": false
+        }
+    }
+]

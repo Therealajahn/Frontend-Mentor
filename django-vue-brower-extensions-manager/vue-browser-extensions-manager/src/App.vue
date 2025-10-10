@@ -26,16 +26,17 @@
 
 	onMounted(() => {
 		axios
-			.get("./data.json")
-			.then(response => console.log(response))
-			.then(json => {    				
-				console.log('json',json)
+			.get("http://127.0.0.1:8000/api/items")
+			.then(response => {
+					extensionInfo = response.data;
+					console.log(response.data)
+				}
+			 )
 			 // convertJSONToCards('all',json)
 			 // radioArticle.addEventListener(
 			 // 	"change",
 			 // 	event => convertJSONToCards(event.target.id,json)
 			 // );
-			});
 		document.querySelector("body")
 		.setAttribute("class","darkmode");
 	});
